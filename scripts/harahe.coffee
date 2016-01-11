@@ -32,10 +32,12 @@ module.exports = (robot) ->
           client.get req, (data, response) ->
             parseString data, (err, result) ->
               items = result['response']['rest'][0]
-              msg.send "Recommend: #{items['name']}"
-              msg.send "Category: #{items['category']}"
-              msg.send "Address: #{items['address']}"
-              msg.send "URL: #{items['url']}"
-              setTimeout (-> msg.send "Image: #{items['image_url'][0]['shop_image1']}"), 500
+              msg.send """
+              #{items['name']}
+
+              カテゴリ: #{items['category']}
+              住所: #{items['address']}
+              #{items['url']}
+              """
         catch
           msg.send "Not Found..."
