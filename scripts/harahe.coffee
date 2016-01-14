@@ -31,11 +31,13 @@ module.exports = (robot) ->
 
           client.get req, (data, response) ->
             parseString data, (err, result) ->
+              formatBudget = (budget) -> if budget then "#{budget}円" else "不明"
               items = result['response']['rest'][0]
               msg.send """
               #{items['name']}
 
               カテゴリ: #{items['category']}
+              平均予算: #{formatBudget(items['budget'])}
               住所: #{items['address']}
               #{items['url']}
               """
