@@ -24,4 +24,4 @@ module.exports = (robot) ->
       return
 
     arr = attr.split(" ")
-    msg.send shuffle(arr).join("\n")
+    msg.send shuffle(arr).join(" ")
