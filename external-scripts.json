@@ -5,7 +5,7 @@
   "hubot-google-translate",
   "hubot-pugme",
   "hubot-maps",
-  "hubot-redis-brain",
+  "hubot-brain-redis-hash",
   "hubot-rules",
   "hubot-shipit"
 ]
