@@ -9,37 +9,38 @@
 
 Client = require("node-rest-client").Client
 client = new Client()
-parseString = require('xml2js').parseString
+stringify = require("querystring").stringify
 
-keyId       = process.env.HUBOT_HARAHE_TOKEN
-address     = ''
+keyid       = process.env.HUBOT_HARAHE_TOKEN
 apiHost     = 'http://api.gnavi.co.jp/RestSearchAPI/20150630/?'
-hitPerPage  = 1
+
+sendRestaurant = (msg, query, budgetKey = "budget") ->
+  formatBudget = (budget) -> if typeof budget == 'string' then "#{budget}円" else "不明"
+  request = apiHost + stringify(query)
+
+  client.get request, (data, res) ->
+    response = JSON.parse(data)
+    if response['error']
+      msg.reply response['error']['message']
+      return
+
+    page = Math.floor Math.random() * Math.min(response['total_hit_count'], response['hit_per_page'])
+    restaurant = if response['total_hit_count'] == '1' then response['rest'] else response['rest'][page]
+    msg.send """
+    #{restaurant['name']}
+
+    カテゴリ: #{restaurant['category']}
+    平均予算: #{formatBudget(restaurant[budgetKey])}
+    住所: #{restaurant['address']}
+    #{restaurant['url']}
+    """
 
 module.exports = (robot) ->
   robot.respond /HARAHE ?(.*)$/i, (msg) ->
-    attr = msg.match[1].trim()
-    address = attr if attr != ""
-    req = "#{apiHost}keyid=#{keyId}&hit_per_page=#{hitPerPage}&offset_page=1&address=#{encodeURIComponent(address)}"
-
-    client.get req, (data, response) ->
-      parseString data, (err, result) ->
-        try
-          totalCount = result['response']['total_hit_count']
-          offsetPage = Math.floor Math.random() * totalCount
-          req = "#{apiHost}keyid=#{keyId}&hit_per_page=#{hitPerPage}&offset_page=#{offsetPage}&address=#{encodeURIComponent(address)}"
-
-          client.get req, (data, response) ->
-            parseString data, (err, result) ->
-              formatBudget = (budget) -> if budget then "#{budget}円" else "不明"
-              items = result['response']['rest'][0]
-              msg.send """
-              #{items['name']}
-
-              カテゴリ: #{items['category']}
-              平均予算: #{formatBudget(items['budget'])}
-              住所: #{items['address']}
-              #{items['url']}
-              """
-        catch
-          msg.send "Not Found..."
+    query = {
+      keyid: keyid
+      hit_per_page: 20
+      address: msg.match[1].trim()
+      format: 'json'
+    }
+    sendRestaurant(msg, query)
