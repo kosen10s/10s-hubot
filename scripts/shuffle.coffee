@@ -23,5 +23,5 @@ module.exports = (robot) ->
       msg.reply "引数が必要です"
       return
 
-    arr = attr.split(" ")
+    arr = attr.split(/\s+/)
     msg.send shuffle(arr).join(" ")
