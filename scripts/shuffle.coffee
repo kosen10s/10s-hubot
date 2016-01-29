@@ -2,7 +2,7 @@
 #   Shuffling tool
 #
 # Commands:
-#   hubot shuffle [items] - output shuffled items
+#   hubot shuffle [items] - 空白区切りの文字列をシャッフルして表示
 
 shuffle = (arr) ->
   arr = arr.slice()

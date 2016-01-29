@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   hubot welcome <new welcome message> - Update the welcome message
+#   hubot welcome <new welcome message> - チャンネルのWelcomeメッセージを更新
 #
 # Author:
 #   jjasghar

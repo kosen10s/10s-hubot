@@ -5,12 +5,12 @@
 #   https://gist.github.com/taketin/146d1412d11f5596770b
 #
 # Commands:
-#   hubot harahe - Reply with restaurant info
-#   hubot osake  - Reply with restaurant info
-#   hubot sake   - Reply with restaurant info
-#   hubot lunch  - Reply with restaurant info
-#   hubot oyatsu - Reply with restaurant info
-#   hubot oyatu  - Reply with restaurant info
+#   hubot harahe <address> - お店を検索
+#   hubot osake <address>  - お店をキーワード「酒」で検索
+#   hubot sake <address>   - お店をキーワード「酒」で検索
+#   hubot lunch <address>  - ランチ営業ありのお店を検索
+#   hubot oyatsu <address> - お店をキーワード「カフェ・スイーツ」で検索
+#   hubot oyatu <address>  - お店をキーワード「カフェ・スイーツ」で検索
 
 Client = require("node-rest-client").Client
 client = new Client()
