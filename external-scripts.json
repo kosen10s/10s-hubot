@@ -1,12 +1,6 @@
 [
   "hubot-diagnostics",
   "hubot-help",
-  "hubot-google-images",
-  "hubot-google-translate",
-  "hubot-pugme",
-  "hubot-maps",
   "hubot-brain-redis-hash",
-  "hubot-rules",
-  "hubot-shipit",
   "hubot-auth"
 ]
