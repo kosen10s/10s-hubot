@@ -8,7 +8,7 @@ shuffle = (arr) ->
   arr = arr.slice()
   i = arr.length
   if i == 0
-    return arr;
+    return arr
   while --i
     j = Math.floor(Math.random() * (i + 1))
     tmp = arr[i]
