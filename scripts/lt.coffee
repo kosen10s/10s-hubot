@@ -7,6 +7,7 @@
 #   hubot lt next <number> - LTのナンバリングを設定する
 #   hubot lt last <number> - LTのナンバリングを設定する
 #   hubot lt info - 次回LTのナンバリングを確認する
+#   hubot lt check - lt startを実行する権限があるか確認する
 
 
 WebClient = require("slack-client").WebClient
@@ -48,7 +49,7 @@ init_slack = (channel_name, msg) ->
 
 module.exports = (robot) ->
   robot.respond /LT START ?(.*)$/i, (msg) ->
-    if robot.auth.isAdmin(msg.envelope.user)
+    if robot.auth.hasRole(msg.envelope.user, "lt")
       if msg.match[1]
         channel_name = msg.match[1]
       else
@@ -77,3 +78,9 @@ module.exports = (robot) ->
   robot.respond /LT INFO ?(\d*)$/i, (msg) ->
     lt_next_num = robot.brain.get("lt.next") ? 1
     msg.reply "次回: lt#{zero_padding lt_next_num}"
+
+  robot.respond /LT CHECK$/i, (msg) ->
+    if robot.auth.hasRole(msg.envelope.user, "lt")
+      msg.reply "権限があります"
+    else
+      msg.reply "権限がありません"
