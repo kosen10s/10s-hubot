@@ -17,7 +17,7 @@ post = (msg, tweet) ->
     if !error
       msg.reply ":done:"
     else
-      msg.reply "ツイートに失敗しました\n#{error}"
+      msg.reply "ツイートに失敗しました\n#{JSON.stringify(error)}"
 
 module.exports = (robot) ->
   robot.respond /TWEET ?(.*)$/i, (msg) ->
