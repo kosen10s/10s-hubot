@@ -10,7 +10,7 @@
 #   hubot lt check - lt startを実行する権限があるか確認する
 
 
-WebClient = require("slack-client").WebClient
+WebClient = require("@slack/client").WebClient
 client = new WebClient(process.env.SLACK_API_TOKEN)
 github = require('githubot')
 
